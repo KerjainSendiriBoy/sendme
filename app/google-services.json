@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "699880700809",
+    "firebase_url": "https://sendme-da48d.firebaseio.com",
+    "project_id": "sendme-da48d",
+    "storage_bucket": "sendme-da48d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699880700809:android:58ec2f44c67c970ac13f58",
+        "android_client_info": {
+          "package_name": "com.example.sendme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699880700809-duliek1o643olosb80j3c1hes9vt518s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt4zV2TCi9CoNTen-hcqW19wyEsTmPF1M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699880700809-duliek1o643olosb80j3c1hes9vt518s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
