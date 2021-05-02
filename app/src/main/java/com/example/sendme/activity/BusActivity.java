@@ -31,6 +31,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.Calendar;
 import java.util.HashMap;
 
+/**
+ * main class untuk form pemesanan tiket bus
+ */
 public class BusActivity extends AppCompatActivity {
     private DatabaseReference database;
     protected Cursor cursor;
@@ -48,6 +51,10 @@ public class BusActivity extends AppCompatActivity {
     private DatePickerDialog dpTanggal;
     Calendar newCalendar = Calendar.getInstance();
 
+    /**
+     * fungsi/method untuk menjalankan program pada form pemesanan
+     * @param savedInstanceState parameter untuk menyimpan state sebelum program dijalankan
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,11 +95,22 @@ public class BusActivity extends AppCompatActivity {
         spinAnak.setAdapter(adapterAnak);
 
         spinAsal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * fungsi/method untuk memilih lokasi asal pada form pemesanan tiket
+             * @param parent adapter
+             * @param view untuk menampilkan
+             * @param position posisi dari item
+             * @param id id item
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 sAsal = parent.getItemAtPosition(position).toString();
             }
 
+            /**
+             * fungsi/method yang dijalankan ketika tidak ada item yang dipilih
+             * @param parent adapter
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -100,11 +118,21 @@ public class BusActivity extends AppCompatActivity {
         });
 
         spinTujuan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * fungsi/method untuk memilih lokasi tujuan pada form pemesanan tiket
+             * @param parent adapter
+             * @param view untuk menampilkan
+             * @param position posisi dari item
+             * @param id id item
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 sTujuan = parent.getItemAtPosition(position).toString();
             }
-
+            /**
+             * fungsi/method yang dijalankan ketika tidak ada item yang dipilih
+             * @param parent adapter
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -112,11 +140,21 @@ public class BusActivity extends AppCompatActivity {
         });
 
         spinDewasa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * fungsi/method untuk memilih jumlah orang dewasa pada form pemesanan tiket
+             * @param parent adapter
+             * @param view untuk menampilkan
+             * @param position posisi dari item
+             * @param id id item
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 sDewasa = parent.getItemAtPosition(position).toString();
             }
-
+            /**
+             * fungsi/method yang dijalankan ketika tidak ada item yang dipilih
+             * @param parent adapter
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -124,11 +162,21 @@ public class BusActivity extends AppCompatActivity {
         });
 
         spinAnak.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            /**
+             * fungsi/method untuk memilih jumlah anak pada form pemesanan tiket
+             * @param parent adapter
+             * @param view untuk menampilkan
+             * @param position posisi dari item
+             * @param id id item
+             */
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 sAnak = parent.getItemAtPosition(position).toString();
             }
-
+            /**
+             * fungsi/method yang dijalankan ketika tidak ada item yang dipilih
+             * @param parent adapter
+             */
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -146,6 +194,10 @@ public class BusActivity extends AppCompatActivity {
         setDateTimeField();
 
         btnBook.setOnClickListener(new View.OnClickListener() {
+            /**
+             * fungsi/method untuk menambahkan data pesanan tiket ke database
+             * @param v menyimpan state sebelum dijalankan
+             */
             @Override
             public void onClick(View v) {
                 perhitunganHarga();
@@ -202,6 +254,9 @@ public class BusActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * fungsi/method untuk mengatur judul pada toolbar
+     */
     private void setupToolbar() {
         Toolbar toolbar = findViewById(R.id.tbKrl);
         toolbar.setTitle("Form Booking");
@@ -209,6 +264,11 @@ public class BusActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    /**
+     * fungsi/method untuk memilih item pada menu
+     * @param item parameter yang berisi item menu
+     * @return dijalankan apabila hasil benar
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -218,6 +278,9 @@ public class BusActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * fungsi/method untuk menghitung harga dari tiket
+     */
     public void perhitunganHarga() {
         if (sAsal.equalsIgnoreCase("jakarta") && sTujuan.equalsIgnoreCase("bandung")) {
             hargaDewasa = 100000;
@@ -289,6 +352,9 @@ public class BusActivity extends AppCompatActivity {
         hargaTotal = hargaTotalDewasa + hargaTotalAnak;
     }
 
+    /**
+     * fungsi/method untuk pemilihan tanggal
+     */
     private void setDateTimeField() {
         etTanggal.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -298,7 +364,13 @@ public class BusActivity extends AppCompatActivity {
         });
 
         dpTanggal = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-
+            /**
+             * fungsi/method untuk mengambil data menggunakan kalendar
+             * @param view untuk menampilkan
+             * @param year input tahun
+             * @param monthOfYear input bulan
+             * @param dayOfMonth input hari
+             */
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
@@ -314,6 +386,10 @@ public class BusActivity extends AppCompatActivity {
 
     public void submitBtn(Ticket ticket) {
         database.child("Ticket").push().setValue(ticket).addOnSuccessListener(this, new OnSuccessListener<Void>() {
+            /**
+             * fungsi/method untuk memberikan notifikasi pada pengguna ketika pemesanan berhasil
+             * @param aVoid menyimpan state sebelum dijalankan
+             */
             @Override
             public void onSuccess(Void aVoid) {
 //                eKode.setText("");
